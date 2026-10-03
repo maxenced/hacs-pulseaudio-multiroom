@@ -1,0 +1,114 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "PulseAudio server",
+        "description": "The server must accept TCP connections (module-native-protocol-tcp, or tcp address of pipewire-pulse).",
+        "data": {
+          "host": "Host",
+          "port": "Port"
+        },
+        "data_description": {
+          "host": "Hostname or IP address of the PulseAudio server, e.g. host.docker.internal when Home Assistant runs in Docker on the same host.",
+          "port": "TCP port of the native protocol (4713 by default)."
+        }
+      },
+      "reconfigure": {
+        "title": "PulseAudio server",
+        "data": {
+          "host": "Host",
+          "port": "Port"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Failed to connect",
+      "unknown": "Unexpected error"
+    },
+    "abort": {
+      "already_configured": "Device is already configured",
+      "reconfigure_successful": "Re-configuration was successful",
+      "unique_id_mismatch": "The host cannot be changed, only the port. Add a new entry for another server."
+    }
+  },
+  "config_subentries": {
+    "room": {
+      "entry_type": "Room",
+      "initiate_flow": {
+        "user": "Add room",
+        "reconfigure": "Edit room"
+      },
+      "step": {
+        "user": {
+          "description": "A room is a PulseAudio sink (e.g. a remap-sink on one channel of a multichannel sound card). It gets a volume, a mute and one switch per source.",
+          "data": {
+            "name": "Name",
+            "sink": "Sink"
+          }
+        },
+        "reconfigure": {
+          "data": {
+            "name": "Name",
+            "sink": "Sink"
+          }
+        }
+      },
+      "error": {
+        "already_configured": "This sink is already used by another room."
+      },
+      "abort": {
+        "entry_not_loaded": "The PulseAudio server is not connected, rooms can't be edited right now.",
+        "reconfigure_successful": "Re-configuration was successful"
+      }
+    },
+    "source": {
+      "entry_type": "Source",
+      "initiate_flow": {
+        "user": "Add source",
+        "reconfigure": "Edit source"
+      },
+      "step": {
+        "user": {
+          "description": "A source (e.g. the monitor of a null-sink a player writes to) gets a switch in every room to play it there.",
+          "data": {
+            "name": "Name",
+            "source": "Source"
+          }
+        },
+        "reconfigure": {
+          "data": {
+            "name": "Name",
+            "source": "Source"
+          }
+        }
+      },
+      "error": {
+        "already_configured": "This source is already configured."
+      },
+      "abort": {
+        "entry_not_loaded": "The PulseAudio server is not connected, sources can't be edited right now.",
+        "reconfigure_successful": "Re-configuration was successful"
+      }
+    }
+  },
+  "entity": {
+    "number": {
+      "volume": {
+        "name": "Volume"
+      }
+    },
+    "switch": {
+      "mute": {
+        "name": "Mute"
+      },
+      "source": {
+        "name": "{source}"
+      }
+    }
+  },
+  "exceptions": {
+    "command_failed": {
+      "message": "PulseAudio command failed: {error}"
+    }
+  }
+}

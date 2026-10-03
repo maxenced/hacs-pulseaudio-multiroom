@@ -1,0 +1,17 @@
+{
+  "entity": {
+    "number": {
+      "volume": { "default": "mdi:volume-high" }
+    },
+    "switch": {
+      "mute": {
+        "default": "mdi:volume-high",
+        "state": { "on": "mdi:volume-off" }
+      },
+      "source": {
+        "default": "mdi:speaker-off",
+        "state": { "on": "mdi:speaker" }
+      }
+    }
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Serveur PulseAudio",
+        "description": "Le serveur doit accepter les connexions TCP (module-native-protocol-tcp, ou adresse tcp de pipewire-pulse).",
+        "data": {
+          "host": "Hôte",
+          "port": "Port"
+        },
+        "data_description": {
+          "host": "Nom ou adresse IP du serveur PulseAudio, par exemple host.docker.internal quand Home Assistant tourne dans Docker sur le même hôte.",
+          "port": "Port TCP du protocole natif (4713 par défaut)."
+        }
+      },
+      "reconfigure": {
+        "title": "Serveur PulseAudio",
+        "data": {
+          "host": "Hôte",
+          "port": "Port"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Échec de connexion",
+      "unknown": "Erreur inattendue"
+    },
+    "abort": {
+      "already_configured": "L'appareil est déjà configuré",
+      "reconfigure_successful": "La reconfiguration a réussi",
+      "unique_id_mismatch": "L'hôte ne peut pas être changé, seulement le port. Ajoutez une nouvelle entrée pour un autre serveur."
+    }
+  },
+  "config_subentries": {
+    "room": {
+      "entry_type": "Pièce",
+      "initiate_flow": {
+        "user": "Ajouter une pièce",
+        "reconfigure": "Modifier la pièce"
+      },
+      "step": {
+        "user": {
+          "description": "Une pièce est un sink PulseAudio (par exemple un remap-sink sur une voie d'une carte son multicanal). Elle reçoit un volume, une sourdine et un interrupteur par source.",
+          "data": {
+            "name": "Nom",
+            "sink": "Sink"
+          }
+        },
+        "reconfigure": {
+          "data": {
+            "name": "Nom",
+            "sink": "Sink"
+          }
+        }
+      },
+      "error": {
+        "already_configured": "Ce sink est déjà utilisé par une autre pièce."
+      },
+      "abort": {
+        "entry_not_loaded": "Le serveur PulseAudio n'est pas connecté, impossible de modifier les pièces pour l'instant.",
+        "reconfigure_successful": "La reconfiguration a réussi"
+      }
+    },
+    "source": {
+      "entry_type": "Source",
+      "initiate_flow": {
+        "user": "Ajouter une source",
+        "reconfigure": "Modifier la source"
+      },
+      "step": {
+        "user": {
+          "description": "Une source (par exemple le monitor d'un null-sink dans lequel joue un lecteur) reçoit un interrupteur dans chaque pièce pour l'y diffuser.",
+          "data": {
+            "name": "Nom",
+            "source": "Source"
+          }
+        },
+        "reconfigure": {
+          "data": {
+            "name": "Nom",
+            "source": "Source"
+          }
+        }
+      },
+      "error": {
+        "already_configured": "Cette source est déjà configurée."
+      },
+      "abort": {
+        "entry_not_loaded": "Le serveur PulseAudio n'est pas connecté, impossible de modifier les sources pour l'instant.",
+        "reconfigure_successful": "La reconfiguration a réussi"
+      }
+    }
+  },
+  "entity": {
+    "number": {
+      "volume": { "name": "Volume" }
+    },
+    "switch": {
+      "mute": { "name": "Sourdine" },
+      "source": { "name": "{source}" }
+    }
+  },
+  "exceptions": {
+    "command_failed": {
+      "message": "La commande PulseAudio a échoué : {error}"
+    }
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "PulseAudio server",
+        "description": "The server must accept TCP connections (module-native-protocol-tcp, or tcp address of pipewire-pulse).",
+        "data": {
+          "host": "[%key:common::config_flow::data::host%]",
+          "port": "[%key:common::config_flow::data::port%]"
+        },
+        "data_description": {
+          "host": "Hostname or IP address of the PulseAudio server, e.g. host.docker.internal when Home Assistant runs in Docker on the same host.",
+          "port": "TCP port of the native protocol (4713 by default)."
+        }
+      },
+      "reconfigure": {
+        "title": "PulseAudio server",
+        "data": {
+          "host": "[%key:common::config_flow::data::host%]",
+          "port": "[%key:common::config_flow::data::port%]"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "[%key:common::config_flow::error::cannot_connect%]",
+      "unknown": "[%key:common::config_flow::error::unknown%]"
+    },
+    "abort": {
+      "already_configured": "[%key:common::config_flow::abort::already_configured_device%]",
+      "reconfigure_successful": "[%key:common::config_flow::abort::reconfigure_successful%]",
+      "unique_id_mismatch": "The host cannot be changed, only the port. Add a new entry for another server."
+    }
+  },
+  "config_subentries": {
+    "room": {
+      "entry_type": "Room",
+      "initiate_flow": {
+        "user": "Add room",
+        "reconfigure": "Edit room"
+      },
+      "step": {
+        "user": {
+          "description": "A room is a PulseAudio sink (e.g. a remap-sink on one channel of a multichannel sound card). It gets a volume, a mute and one switch per source.",
+          "data": {
+            "name": "[%key:common::config_flow::data::name%]",
+            "sink": "Sink"
+          }
+        },
+        "reconfigure": {
+          "data": {
+            "name": "[%key:common::config_flow::data::name%]",
+            "sink": "Sink"
+          }
+        }
+      },
+      "error": {
+        "already_configured": "This sink is already used by another room."
+      },
+      "abort": {
+        "entry_not_loaded": "The PulseAudio server is not connected, rooms can't be edited right now.",
+        "reconfigure_successful": "[%key:common::config_flow::abort::reconfigure_successful%]"
+      }
+    },
+    "source": {
+      "entry_type": "Source",
+      "initiate_flow": {
+        "user": "Add source",
+        "reconfigure": "Edit source"
+      },
+      "step": {
+        "user": {
+          "description": "A source (e.g. the monitor of a null-sink a player writes to) gets a switch in every room to play it there.",
+          "data": {
+            "name": "[%key:common::config_flow::data::name%]",
+            "source": "Source"
+          }
+        },
+        "reconfigure": {
+          "data": {
+            "name": "[%key:common::config_flow::data::name%]",
+            "source": "Source"
+          }
+        }
+      },
+      "error": {
+        "already_configured": "This source is already configured."
+      },
+      "abort": {
+        "entry_not_loaded": "The PulseAudio server is not connected, sources can't be edited right now.",
+        "reconfigure_successful": "[%key:common::config_flow::abort::reconfigure_successful%]"
+      }
+    }
+  },
+  "entity": {
+    "number": {
+      "volume": { "name": "Volume" }
+    },
+    "switch": {
+      "mute": { "name": "Mute" },
+      "source": { "name": "{source}" }
+    }
+  },
+  "exceptions": {
+    "command_failed": {
+      "message": "PulseAudio command failed: {error}"
+    }
+  }
+}

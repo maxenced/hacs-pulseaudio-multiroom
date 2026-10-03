@@ -1,0 +1,38 @@
+[project]
+name = "pulseaudio-multiroom"
+version = "0.1.0"
+description = "Home Assistant integration to drive a PulseAudio software multiroom (per-room volume, mute and source loopbacks)"
+readme = "README.md"
+requires-python = ">=3.14.2"
+dependencies = []
+
+
+[dependency-groups]
+dev = [
+    "pulsectl==23.5.2",
+    "pytest-homeassistant-custom-component==0.13.367",  # homeassistant==2026.9.4
+    "ruff",
+    "ty",
+]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py314"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "SIM", "RUF", "D", "PL", "PT"]
+ignore = ["D203", "D213", "PLR2004"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["D", "PLR0913"]
+
+[tool.ruff.lint.isort]
+force-sort-within-sections = true
+known-first-party = ["custom_components", "homeassistant"]
+combine-as-imports = true

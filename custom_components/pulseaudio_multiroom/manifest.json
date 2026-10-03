@@ -1,0 +1,12 @@
+{
+  "domain": "pulseaudio_multiroom",
+  "name": "PulseAudio Multiroom",
+  "codeowners": ["@maxenced"],
+  "config_flow": true,
+  "documentation": "https://github.com/maxenced/pulseaudio_multiroom",
+  "integration_type": "hub",
+  "iot_class": "local_push",
+  "issue_tracker": "https://github.com/maxenced/pulseaudio_multiroom/issues",
+  "requirements": ["pulsectl==23.5.2"],
+  "version": "0.1.0"
+}
