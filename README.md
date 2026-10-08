@@ -1,5 +1,8 @@
 # PulseAudio Multiroom
 
+[![Validate](https://github.com/maxenced/hacs-pulseaudio-multiroom/actions/workflows/validate.yml/badge.svg)](https://github.com/maxenced/hacs-pulseaudio-multiroom/actions/workflows/validate.yml)
+[![hacs](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://hacs.xyz/docs/faq/custom_repositories)
+
 Home Assistant integration driving a software multiroom built on a PulseAudio
 (or PipeWire, through `pipewire-pulse`) server: one sink per room, sources
 routed to rooms with `module-loopback`.
@@ -32,9 +35,17 @@ them, so modules created by the core `pulseaudio_loopback` switches or by
 
 ## Installation
 
+### HACS (recommended)
+
+1. HACS → ⋮ → *Custom repositories*, add
+   `https://github.com/maxenced/hacs-pulseaudio-multiroom` with type
+   *Integration*.
+2. Install *PulseAudio Multiroom*, then restart Home Assistant.
+
+### Manual
+
 Copy `custom_components/pulseaudio_multiroom` into the Home Assistant
-`config/custom_components` directory (or add this repository to HACS as a
-custom repository), then restart Home Assistant.
+`config/custom_components` directory, then restart Home Assistant.
 
 ## Configuration
 
@@ -62,3 +73,7 @@ uv run ruff format && uv run ruff check
 uv run ty check
 uv run pytest
 ```
+
+## License
+
+Apache 2.0, see [LICENSE](LICENSE).
